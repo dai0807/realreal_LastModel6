@@ -104,14 +104,17 @@ public class ProdctController {
 	}
 	
 	@RequestMapping("/getProduct.do")
-	public String getProduct(@RequestParam("prodNo" ) int prodNo , Model model ) throws Exception 
+	public String getProduct(@RequestParam("prodNo" ) int prodNo,@RequestParam("tranCode" ) String tranCode ,  Model model ) throws Exception 
 	{
+		System.out.println("getProduct:: prodNo ::: 출력하기 " + prodNo );
+
 		System.out.println("/getProduct.do");
 		Product product  = productService.getProduct(prodNo) ;
 	
 		System.out.println("product ::: 출력하기 " + product );
 		model.addAttribute("Product" , product ) ;
-	 	
+		model.addAttribute("tranCode" , tranCode ) ;
+
 	
 		return "forward:/product/getProduct.jsp";
 		

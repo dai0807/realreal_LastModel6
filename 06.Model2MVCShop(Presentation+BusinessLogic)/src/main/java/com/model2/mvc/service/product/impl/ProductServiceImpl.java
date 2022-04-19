@@ -40,9 +40,10 @@ public class ProductServiceImpl implements ProductService{
   		productDao.updateProduct(product);
 	}
 
- 	public Product getProduct(int tranNo) throws Exception {
-  		
-		return productDao.getProduct(tranNo);
+ 	public Product getProduct(int prodNo) throws Exception {
+  		System.out.println("서비스 다오 getProduct  :: " + prodNo );
+  		System.out.println( "나와라 " +productDao.getProduct(prodNo));
+		return productDao.getProduct(prodNo);
 	}
 
  	public Map<String, Object> getProductList(Search search) throws Exception {

@@ -29,9 +29,9 @@ public class ProductDaoImpl implements ProductDao{
 		System.out.println(this.getClass());
 	}
 
-	public Product getProduct(int prod_no) throws Exception {
+	public Product getProduct(int prodNo) throws Exception {
 		// TODO Auto-generated method stub
-		return sqlSession.selectOne("ProductMapper.getProduct" ,prod_no);
+ 		return sqlSession.selectOne("ProductMapper.getProduct" ,prodNo);
 	}
 
   	public List<Product> getProductList(Search search) throws Exception {

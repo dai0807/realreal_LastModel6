@@ -1,6 +1,5 @@
-package com.model2.mvc.view.product;
+package com.model2.mvc.view.purchase;
 
-import java.util.HashMap;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
@@ -11,23 +10,23 @@ import com.model2.mvc.common.Search;
 import com.model2.mvc.framework.Action;
 import com.model2.mvc.service.product.ProductService;
 import com.model2.mvc.service.product.impl.ProductServiceImpl;
- 
+import com.model2.mvc.service.purchase.PurchaseSerivce;
+import com.model2.mvc.service.purchase.impl.PurchaseServiceImpl;
 
-public class ListProductAction extends Action {
-// listProduct.do 를 하면 여기로 옴  , 돌아가는 거 몰라 
+public class ListSaleAction extends Action {
+
 	@Override
-	public String execute(	HttpServletRequest request,
-												HttpServletResponse response) throws Exception {
-		Search search=new Search();
+	public String execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
+		// TODO Auto-generated method stub
+	Search search=new Search();
 		
 		
 		int currentPage=1;
-		System.out.println("List producAction 여기에 왔나요 ");
+		System.out.println("SaleList 여기에 왔나요 ");
 		System.out.println("request.getParameter(\"currentPage\") :: "+ request.getParameter("currentPage"));
 
 
-
-			
+		
 		if(request.getParameter("currentPage") != null   ) {
 		
 	 
@@ -47,28 +46,24 @@ public class ListProductAction extends Action {
 		search.setPageSize(pageSize);
 		
 	//	비지니스 로직 
-		ProductService service = new ProductServiceImpl() ; 
+		PurchaseSerivce purchaseSerivce = new PurchaseServiceImpl() ;
 
-		Map<String,Object> map=service.getProductList(search);  
+		Map<String,Object> map=purchaseSerivce.getSaleList(search);  
 		Page resultPage =
 				new Page(currentPage,((Integer)map.get("totalCount")).intValue(),pageUnit,pageSize) ; 
 		
 		
 		 // view 로 보내기
-	//	request.setAttribute("map", map);
 		request.setAttribute("list", map.get("list"));
-
 		request.setAttribute("search", search);
 		request.setAttribute("resultPage", resultPage);
-		request.setAttribute("menu", request.getParameter("menu"));
-
-	//	search.setSearchCondition("condition");
-	//	search.setSearchKeyword("keyword");
+	//	request.setAttribute("menu", request.getParameter("menu"));
+		System.out.println("SaleList 끄 ");
 		
-		return "forward:/product/listProduct.jsp";
-	//	return "forward:/product/listProduct_test.jsp";
-	//	return  null ;
+		
+		
+		return "forward:/purchase/listSaleView.jsp" ;  
+	}
 	
 
-}
 }

@@ -36,7 +36,7 @@
 		SELECT
 		p.*, NVL(t.tran_status_code,'000') pro_tran_status_code  		
 		FROM product p, transaction t 
-		WHERE  t.prod_no   =   p.prod_no(+)  AND p.prod_no =  #{value}
+		WHERE  t.prod_no(+)   =   p.prod_no  AND p.prod_no =  #{value}
 	 </select> 
 	  <!-- SQL : 트랜코드 받기  아직 단위 테스트 안함 -->
 	 <select id ="getTrandCode"  parameterType="int" resultType="int">
@@ -67,7 +67,7 @@
 		  					FROM		(	SELECT p.* ,  NVL(t.tran_status_code, '000')  pro_tran_status_code
 												FROM product p , transaction t
  													<where>
- 													 t.prod_no   =   p.prod_no(+)  
+ 												 p.prod_no =	 t.prod_no(+)    
 													<if test="searchCondition != null">
 																<if test="searchCondition == 0 and searchKeyword !='' ">
 														 			AND p.prod_no LIKE  LIKE '%' || #{searchKeyword} || '%'
@@ -94,8 +94,8 @@
 	  	FROM(	SELECT  p.* ,  NVL(t.tran_status_code, '000')  pro_tran_status_code
 						FROM product p , transaction t
  							<where>
- 								  t.prod_no   =   p.prod_no(+)  
-										 <if test="searchCondition != null">
+ 												 p.prod_no =	 t.prod_no(+)    
+									 <if test="searchCondition != null">
 							
 										<if test="searchCondition == 0 and searchKeyword !='' ">
 								 		AND 	p.prod_no  LIKE '%' || #{searchKeyword} || '%'
