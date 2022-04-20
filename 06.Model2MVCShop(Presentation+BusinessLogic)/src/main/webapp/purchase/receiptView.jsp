@@ -36,7 +36,112 @@ function fncGoListPurchase() {
 
  <form name="viewPurchase" action="/listPurchase.do" method="post">
  
-다음과 같이 구매가 되었습니다.
+ 
+
+<table width="100%" border="0" cellspacing="0" cellpadding="0"	style="margin-top: 13px;">
+	<tr>
+		<td height="1" colspan="3" bgcolor="D6D6D6"></td>
+	</tr>
+	 
+
+	<tr>
+		<td width="104" class="ct_write">물품번호</td>
+		<td bgcolor="D6D6D6" width="1"></td>
+		<td class="ct_write01"> ${purchase.purchaseProd.prodNo }
+		</td>
+	</tr>
+	<tr>
+		<td height="1" colspan="3" bgcolor="D6D6D6"></td>
+	</tr>
+	<tr>
+		<td width="104" class="ct_write">구매자아이디</td>
+		<td bgcolor="D6D6D6" width="1"></td>
+		<td class="ct_write01"> ${purchase.buyer.userId} </td>
+	</tr>
+	<tr>
+		<td height="1" colspan="3" bgcolor="D6D6D6"></td>
+	</tr>
+	<tr>
+		<td width="104" class="ct_write">구매방법</td>
+		<td bgcolor="D6D6D6" width="1"></td>
+		<td class="ct_write01">
+			 		<c:if test = "${purchase.paymentOption eq '1'}">
+	 		
+			 				현금구매
+			 
+					</c:if>
+					<c:if test = "${ purchase.paymentOption eq '2'}">
+							신용구매
+			
+					</c:if>
+
+		</td>
+	</tr>
+	<tr>
+		<td height="1" colspan="3" bgcolor="D6D6D6"></td>
+	</tr>	
+	<tr>
+		<td width="104" class="ct_write">구매자 이름</td>
+		<td bgcolor="D6D6D6" width="1"></td>
+		<td class="ct_write01"> ${purchase.receiverName } </td>
+	</tr>
+
+	<tr>
+		<td height="1" colspan="3" bgcolor="D6D6D6"></td>
+	</tr>
+	<tr>
+		<td width="104" class="ct_write">구매자 연락처</td>
+		<td bgcolor="D6D6D6" width="1"></td>
+		<td class="ct_write01">${purchase.receiverPhone} </td>
+	</tr>
+	<tr>
+		<td height="1" colspan="3" bgcolor="D6D6D6"></td>
+	</tr>
+			
+	<tr>
+		<td height="1" colspan="3" bgcolor="D6D6D6"></td>
+	</tr>
+	<tr>
+		<td width="104" class="ct_write">구매자주소</td>
+		<td bgcolor="D6D6D6" width="1"></td>
+		<td class="ct_write01"> ${purchase.dlvyAddr} </td>
+	</tr>
+	<tr>
+		<td height="1" colspan="3" bgcolor="D6D6D6"></td>
+	</tr>
+	<tr>
+		<td width="104" class="ct_write">구매요청사항</td>
+		<td bgcolor="D6D6D6" width="1"></td>
+		<td class="ct_write01">  ${purchase.dlvyRequest}   </td>
+	</tr>
+	<tr>
+		<td height="1" colspan="3" bgcolor="D6D6D6"></td>
+	</tr>
+	<tr>
+		<td width="104" class="ct_write">배송희망일</td>
+		<td bgcolor="D6D6D6" width="1"></td>
+		<td class="ct_write01"> ${purchase.dlvyDate} </td>
+	</tr>
+
+	<tr>
+		<td height="1" colspan="3" bgcolor="D6D6D6"></td>
+	</tr>
+
+	<tr>
+		<td width="104" class="ct_write">주문일</td>
+		<td bgcolor="D6D6D6" width="1"></td>
+		<td class="ct_write01"> 2022-04-13 </td>
+	</tr>
+
+	<tr>
+		<td height="1" colspan="3" bgcolor="D6D6D6"></td>
+	</tr>
+	
+</table>
+
+
+
+<!--  
 <table border=1>
 	<tr>
 		<td>물품번호</td>
@@ -92,11 +197,11 @@ function fncGoListPurchase() {
 	</tr>
 	 
  </table>
- 
+ -->
  <table width="100%" border="0" cellspacing="0" cellpadding="0" style="margin-top: 10px;">
 	<tr>
 		<td width="53%"></td>
-		<td align="center">
+		<td align="right">
 			<table border="0" cellspacing="0" cellpadding="0">
 				<tr>
 					<td width="17" height="23">

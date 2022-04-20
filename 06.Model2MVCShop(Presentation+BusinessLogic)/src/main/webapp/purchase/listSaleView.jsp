@@ -1,32 +1,12 @@
-ss<%@ page language="java" contentType="text/html; charset=EUC-KR"
+<%@ page language="java" contentType="text/html; charset=EUC-KR"
     pageEncoding="EUC-KR"%>
             <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-        <%--
-      <%@ page import="com.model2.mvc.service.domain.Purchase" %>
-    <%@ page import="com.model2.mvc.service.domain.*" %>
-   <%@ page import="java.util.*"  %>  
-    <%@ page import="com.model2.mvc.common.*" %>
-    
-    
-    
-    
-	Map<String,Object> map=(Map<String,Object>)request.getAttribute("map");
-    List<Purchase> list=(List<Purchase>) map.get("list");
-
-	Search search=(Search)request.getAttribute("search");
-	Page resultPage=(Page)request.getAttribute("resultPage");
-	int currentPage=search.getCurrentPage();
- 	
---%>
-    
-  
- 
  
 <!DOCTYPE html>
 <html>
 <head>
  
-<title>구매 목록조회 </title>
+<title> 판매 목록조회  </title>
  
 
 
@@ -62,7 +42,7 @@ function fncGetList(currentPage){
 		<td background="/images/ct_ttl_img02.gif" width="100%" style="padding-left: 10px;">
 			<table width="100%" border="0" cellspacing="0" cellpadding="0">
 				<tr>
-					<td width="93%" class="ct_ttl01">구매 목록조회</td>
+					<td width="93%" class="ct_ttl01">판매 목록조회</td>
 				</tr>
 			</table>
 		</td>
@@ -111,7 +91,7 @@ function fncGetList(currentPage){
 					          Purchase purchase = (Purchase)list.get(i) ;
 							 --%>
 			 <tr class="ct_list_pop">
-			<td align="center" > ${i+1}</td>
+			<td align="center" > ${i}</td>
  		 
  	 			
 			<td></td>
@@ -151,33 +131,7 @@ function fncGetList(currentPage){
 		</tr>
 </c:forEach>		
  
-
- 			<%-- 
-						<td align="left"> <a href="/getPurchase.do?tranNo=<%=purchase.getTranNo()%>"> <%=purchase.getReceiverName()%>    </td>
-						<td></td>
-						
-						<td align="left">  <%=purchase.getBuyer().getUserId()%>   </td>
-						<td></td>
-						
-						<td align="left"> <%=purchase.getPurchaseProd().getProdName() %>  </td>
-						<td></td>
-						<td align="left"> <%=purchase.getReceiverPhone()%>  </td>
-						<td></td>
-						 <td align="left"> 
-						 <% if(purchase.getTranCode().equals("002")){%>
-									구매완료 상태입니다. 
-							<%}else if(purchase.getTranCode().equals("003")){%>
-										배송중상태입니다.
-			 							
-										
-							<% }else if(purchase.getTranCode().equals("004")){%>
-										배송완료
-									<%} %>
-			
-					 
-						 </td>
-			 	--%>
-
+  
 	
 		
 		<td align="right" width="70">
@@ -194,31 +148,7 @@ function fncGetList(currentPage){
 		<td align="center">
 		   <input type="hidden" id="currentPage" name="currentPage" value=""/>
 		   		<jsp:include page="../common/pageNavigator.jsp"/>	
-		   
-		   <%--
-			<% if( resultPage.getCurrentPage() <= resultPage.getPageUnit() ){ %>
-					◀ 이전
-			<% }else{ %>
-					<a href="javascript:fncGetProductList('<%=resultPage.getCurrentPage()-1%>')">◀ 이전</a>
-			<% } %>
-					
- 
-			<%	for(int i=resultPage.getBseginUnitPage();i<= resultPage.getEndUnitPage() ;i++){	%>
-				
-			 	<a href="javascript:fncGetProductList('<%=i %>');"><%=i %></a> 
-
-
-
-			<% 	}  %> 
-			
-	 
-	
-			<% if( resultPage.getEndUnitPage() >= resultPage.getMaxPage() ){ %>
-					이후 ▶
-			<% }else{ %>
-					<a href="javascript:fncGetProductList('<%=resultPage.getEndUnitPage()+1%>')">이후 ▶</a>
-			<% } %>
- --%>		
+		 	
     	</td>
 	</tr>
 </table>

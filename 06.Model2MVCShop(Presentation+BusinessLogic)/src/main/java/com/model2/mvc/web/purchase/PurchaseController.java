@@ -113,21 +113,26 @@ public class PurchaseController {
 	@RequestMapping("/listPurchase.do") // 아주 펑펑 터짐 진자 펑펑 불꽃 놀이 하냐고요 ,,,, 
 	public ModelAndView listPurchase(@ModelAttribute("search") Search search  ,HttpServletRequest request ,   HttpSession session ) throws Exception {
  //  리스트 하기 
+		System.out.println("listPurchase :: 옴!! ");
 
 		if(search.getCurrentPage() ==0 ){
 			search.setCurrentPage(1);
 		}
 		search.setPageSize(pageSize);
+		
+		
+		
 		System.out.println("search 정보들 "+search);
-		// Business logic 수행
 		String buyer_id =((User)request.getSession(true).getAttribute("user")).getUserId(); //유저 아이디 뽑기 
 		System.out.println("buyer_id :: " + buyer_id );
 		search.setSearchCondition(" ") ;
 		search.setSearchKeyword(buyer_id) ;
 
+		
+		// Business logic 수행
+
 	 Map<String , Object> map=purchaseService.getPurchaseList(search);
-		
-		
+			
 		Page resultPage = new Page( search.getCurrentPage(), ((Integer)map.get("totalCount")).intValue(), pageUnit, pageSize);
 		System.out.println(resultPage);
 		
@@ -230,7 +235,7 @@ public class PurchaseController {
 		System.out.println("가라!"  );
 
 		purchase = purchaseService.getPurchase(tranNo);		
-		System.out.println("tranNo업뎃후   " + purchase  );
+		System.out.println("tranNo업뎃후   " + purchase.getTranCode()  );
 		
 		ModelAndView modelAndView = new ModelAndView() ;
  		
@@ -243,7 +248,37 @@ public class PurchaseController {
  		return modelAndView;
 		
 	}
-	 
+	 //  	<a href="/updateProdcutTranCodeByProd.
 	
+	@RequestMapping("listSale.do") // 판매 리스트 
+	public ModelAndView listSale(@ModelAttribute("search") Search search  ,HttpServletRequest request ,   HttpSession session ) throws Exception {
+ //  리스트 하기 
+ 
+		if(search.getCurrentPage() ==0 ){
+			search.setCurrentPage(1);
+		}
+		search.setPageSize(pageSize);
+	search.setSearchCondition("") ;
+ 
+		System.out.println("listSale 정보들 " );
+
+		System.out.println("search 정보들 "+search);
+		
+
+		 Map<String , Object> map=purchaseService.getSaleList(search);
+				
+			Page resultPage = new Page( search.getCurrentPage(), ((Integer)map.get("totalCount")).intValue(), pageUnit, pageSize);
+			System.out.println(resultPage);
+			
+	 
+			
+			ModelAndView modelAndView = new ModelAndView() ;
+ 			modelAndView.addObject("search", search) ; 
+			modelAndView.addObject("list",  map.get("list")) ; 
+			modelAndView.addObject("resultPage", resultPage) ;
+		
+ 		modelAndView.setViewName("/purchase/listSaleView.jsp");
+		return modelAndView;
+	}	
 	
 }

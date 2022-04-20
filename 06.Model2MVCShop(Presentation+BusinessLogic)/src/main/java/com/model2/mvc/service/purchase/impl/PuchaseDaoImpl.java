@@ -65,7 +65,7 @@ public class PuchaseDaoImpl implements PurchaseDao {
  		System.out.println("DAO ¿È ");
  
  		sqlSession.update("PurchaseMapper.update_tran_code", purchase)  ;
- 		System.out.println("dao …Æ");
+ 		System.out.println("dao ³¡");
 	}
 
  	public int getTotalCount(Search search) throws Exception {

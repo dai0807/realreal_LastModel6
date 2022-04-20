@@ -3,6 +3,7 @@ package com.model2.mvc.web.product;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -12,12 +13,15 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.model2.mvc.common.Page;
 import com.model2.mvc.common.Search;
 import com.model2.mvc.service.domain.Product;
+import com.model2.mvc.service.domain.Purchase;
 import com.model2.mvc.service.domain.User;
 import com.model2.mvc.service.product.ProductService;
+import com.model2.mvc.service.purchase.PurchaseService;
 import com.model2.mvc.service.user.UserService;
 
 
@@ -29,8 +33,14 @@ public class ProdctController {
 	@Autowired
 	@Qualifier("productServiceImpl")
 	private ProductService productService;
-	//setter Method 구현 않음
-		
+ 	@Autowired
+	@Qualifier("purchaseServiceImpl")
+	private PurchaseService purchaseService ;
+	
+	@Autowired
+	@Qualifier("userServiceImpl")
+	private UserService userService;
+ 	
 	public ProdctController(){
 		System.out.println(this.getClass());
 	}
@@ -104,16 +114,24 @@ public class ProdctController {
 	}
 	
 	@RequestMapping("/getProduct.do")
-	public String getProduct(@RequestParam("prodNo" ) int prodNo,@RequestParam("tranCode" ) String tranCode ,  Model model ) throws Exception 
+	public String getProduct(@RequestParam("prodNo" ) int prodNo,@RequestParam("tranCode" ) String tranCode ,  Model model ,  HttpServletRequest request ,   HttpSession session ) throws Exception 
 	{
 		System.out.println("getProduct:: prodNo ::: 출력하기 " + prodNo );
 
 		System.out.println("/getProduct.do");
+		
+		
+		
 		Product product  = productService.getProduct(prodNo) ;
-	
+		String userId =((User)request.getSession(true).getAttribute("user")).getUserId(); //유저 아이디 뽑기 
+		User user = userService.getUser(userId);  // role이 유저만 구매하게 하려고
+
+		
+		
 		System.out.println("product ::: 출력하기 " + product );
 		model.addAttribute("Product" , product ) ;
 		model.addAttribute("tranCode" , tranCode ) ;
+		model.addAttribute("user" , user ) ;
 
 	
 		return "forward:/product/getProduct.jsp";
@@ -153,5 +171,38 @@ public class ProdctController {
 		
 	
 	}	
+	
+	
+	@RequestMapping("/updateProdcutTranCodeByProd.do")  // 데이터 받기 
+	public ModelAndView updateProdcutTranCodeByProd(@ModelAttribute("search") Search search  , @RequestParam("prodNo") int prodNo  , @RequestParam("tranCode") String tranCode ) throws Exception 
+	{
+		System.out.println("updateProdcutTranCodeByProd옴 ");
+		System.out.println("updateProdcutTranCodeByProd :: prodNo ::  "  + prodNo  + " tranc Code :: " + tranCode );
+ 
+		//productNo로 DB  찾아서 tranNo 가져오기
+		int tranNo =  productService.findTrandtranNo(prodNo) ; //  
+		Purchase purchase = purchaseService.getPurchase(tranNo);		
+ 		purchase.setTranCode(tranCode)  ;  // update할 tranCode 삽입하기 
+ 
+		purchaseService.updateTranCode(purchase) ; // 비지니스 로직 
+		
+		ModelAndView modelAndView = new ModelAndView() ;
+ 		modelAndView.setViewName("/listProduct.do?") ;
+		System.out.println(" ");
+
+		
+ 
+		purchase = purchaseService.getPurchase(tranNo);	 // 업데이트 확인 용 	
+		System.out.println("update 끝! :::: tranNo업뎃후   " + purchase.getTranCode()  );
+		
+ 		
+ 		
+ 
+ 		return modelAndView;
+		
+	}
+ 	
+	
+	
 	
 }

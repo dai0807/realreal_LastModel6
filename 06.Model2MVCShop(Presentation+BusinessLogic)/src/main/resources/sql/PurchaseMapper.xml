@@ -16,7 +16,7 @@
  
 		<result property="dlvyAddr" column="DEMAILADDR" jdbcType="VARCHAR"/>
 		<result property="dlvyRequest" column="dlvy_request" jdbcType="VARCHAR"/>
- 		<result property="tranCode" column="tran_status_code" jdbcType="VARCHAR"/>
+ 		<result property="tranCode" column="tran_status_code" jdbcType="CHAR"/>
  
 		<result property="dlvyDate" column="dlvy_date" jdbcType="VARCHAR"/>
  		
@@ -87,15 +87,16 @@
 	  	FROM (	SELECT inner_table.* , ROWNUM AS row_seq
 	  			FROM		(	SELECT  t.* , p.prod_name 
 								FROM transaction t , product p 
-								<if test="searchCondition != null">
 										<where>
 										t.prod_no= p.prod_no(+)
-											<if test="searchKeyword != null or searchKeyword !='' ">
-								 				AND  buyer_id = #{search.searchKeyword}
-											</if>												
-										
+											 <if test="searchCondition != null and searchCondition != '' ">
+											
+												<if test="searchKeyword != null and searchKeyword !='' ">
+									 				AND  t.buyer_id = #{search.searchKeyword}
+												</if>												
+											</if>
 										</where>
-								</if>
+								
 						ORDER BY t.tran_no   ) inner_table
 				WHERE ROWNUM &lt;= #{search.endRowNum} )
 		WHERE row_seq BETWEEN #{search.startRowNum} AND #{search.endRowNum} 
@@ -122,7 +123,7 @@
 	  	SELECT COUNT(*)
 	  	FROM(	SELECT tran_no, receiver_name, receiver_phone, tran_status_code
 						FROM transaction
-							<if test= ' value != null or value !=  "" '>
+							<if test= ' value != null '>
 									<where>
 							
 									buyer_id = #{value}

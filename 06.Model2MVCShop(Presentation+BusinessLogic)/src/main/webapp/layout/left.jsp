@@ -57,14 +57,19 @@ function history(){
 						<a href="/addProductView.do;" target="rightFrame">판매상품등록</a>
 					</td>
 				</tr>
-			<tr>
-				<td class="Depth03">
-					<a href="/listProduct.do?menu=manage"  target="rightFrame">판매상품관리</a>
-				</td>
-			</tr>				
-				<tr>
+			 	<tr>
 					<td class="Depth03">
 						<a href="/listProduct.do?menu=manage"  target="rightFrame">판매상품관리</a>
+					</td>
+				</tr>		
+				
+				<tr>
+					<td class="DepthEnd">&nbsp;</td>
+				</tr>
+										
+				<tr>
+					<td class="Depth03">
+					<a href="/listSale.do?"  target="rightFrame">판매 상품 목록</a>
 					</td>
 				</tr>
 				<tr>

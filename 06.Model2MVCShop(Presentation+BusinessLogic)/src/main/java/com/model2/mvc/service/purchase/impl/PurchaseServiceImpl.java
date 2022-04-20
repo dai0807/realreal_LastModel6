@@ -104,5 +104,6 @@ public class PurchaseServiceImpl implements PurchaseService {
 		System.out.println("updateTranCode :: " +purchase );
 		purchaseDao.updatetranCode(purchase) ;
 	}
-
+ 
+	
 }
