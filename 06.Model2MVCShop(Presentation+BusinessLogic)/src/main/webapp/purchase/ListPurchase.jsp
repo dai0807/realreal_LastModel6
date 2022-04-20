@@ -89,7 +89,7 @@ function fncGetProductList(currentPage){
 		<tr>
 			<td colspan="12" >
 			전체  ${resultPage.totalCount } 건수, 현재 ${resultPage.currentPage}  페이지
-ㄴ	</tr>	
+	</tr>	
 	<tr>
 		<td class="ct_list_b" width="100">No</td>
 		<td class="ct_line02"></td>
@@ -150,6 +150,9 @@ function fncGetProductList(currentPage){
 			 	  <a href="/updateTranCode.do?currentPage=${resultPage.currentPage }&tranNo=${Puchase.tranNo }&tranCode=004">물품도착</a> 
 			 
 			 </c:if>
+	 			   <c:if test="${Puchase.tranCode eq '004'}">
+					배송완료 
+	 			 </c:if>
 	 
 	 
 		 

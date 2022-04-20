@@ -17,12 +17,14 @@ public interface PurchaseDao {
 	public Purchase getPurchase(int tranNo) throws Exception;
  
 	// 판매 리스트 가져오기
-	public Map<String, Object> getSaleList(Search search) throws Exception ;
+	//public Map<String, Object> getSaleList(Search search) throws Exception ;
+	 public  List<Purchase> getSaleList(Map<String,Object> map )   throws Exception ;
+	
+
 	
 	// 구매  리스트 가져오기
 //	public Map<String, Object> getPurchaseList(Search search , String userId ) throws Exception ;
 	public List<Purchase> getPurchaseList(Map<String,Object> map ) throws Exception ;
-	
 	//판매내역 업데이트
 	public void updatePurchase(Purchase purchase) throws Exception  ;
 	

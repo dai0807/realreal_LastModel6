@@ -41,13 +41,14 @@ public class PuchaseDaoImpl implements PurchaseDao {
 		return sqlSession.selectOne("PurchaseMapper.getPurchase" ,tranNo );
 	}
 
-	 
-	public Map<String, Object> getSaleList(Search search) throws Exception {
+	 // 판매 리스트  
+	public List<Purchase> getSaleList(Map<String,Object> map )  throws Exception {
 		// TODO Auto-generated method stub
-		return null;
+		return  sqlSession.selectList("PurchaseMapper.getSaleList",map );
 	}
 
 	 
+	//구매리스트 
 	public List<Purchase> getPurchaseList(Map<String,Object> map ) throws Exception{
 
 		return sqlSession.selectList("PurchaseMapper.getPurchaseList",map );
@@ -61,8 +62,10 @@ public class PuchaseDaoImpl implements PurchaseDao {
 
  	public void updatetranCode(Purchase purchase) throws Exception {
 		// TODO Auto-generated method stub
- 		sqlSession.update("PurchaseMapper.update_tran_code",purchase) ;
-
+ 		System.out.println("DAO 옴 ");
+ 
+ 		sqlSession.update("PurchaseMapper.update_tran_code", purchase)  ;
+ 		System.out.println("dao 끛");
 	}
 
  	public int getTotalCount(Search search) throws Exception {

@@ -46,14 +46,15 @@ public class PurchaseServiceImpl implements PurchaseService {
 		return purchaseDao.getPurchase(tranNo) ;
 	}
 
-	@Override
+	@Override // ±¸¸Å¸®½ºÆ® °¡Á®¿Á ¤Ó³» ±¸¸Å ¸®½ºÆ® 
 	public Map<String, Object> getPurchaseList(Search search ) throws Exception {
 		System.out.println("get Purchas List¿¡ ¿È ");
 		Map<String, Object> map = new HashMap<String, Object>();
 		System.out.println(search);
 		
 		map.put("search",search);
-	//	map.put("userId",userId);
+		System.out.println(search);
+		//	map.put("userId",userId);
 		int totalCount = purchaseDao.getTotalCount(search);
 		System.out.println("¼­Ä¡¿È¿È ");
 
@@ -61,6 +62,7 @@ public class PurchaseServiceImpl implements PurchaseService {
 		System.out.println(totalCount);
 		
 		List<Purchase> list= purchaseDao.getPurchaseList(map);	
+	
 		
 		map.put("list", list );		
 		map.put("totalCount", new Integer(totalCount));
@@ -83,7 +85,7 @@ public class PurchaseServiceImpl implements PurchaseService {
 		
 		System.out.println(totalCount);
 		
-		List<Purchase> list= purchaseDao.getPurchaseList(map);	
+		List<Purchase> list= purchaseDao.getSaleList(map);	
 		
 		map.put("list", list );		
 		map.put("totalCount", new Integer(totalCount));

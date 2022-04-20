@@ -12,10 +12,11 @@
 		<result property="paymentOption" column="payment_option" jdbcType="CHAR"/>
 		<result property="receiverName" column="receiver_name" jdbcType="VARCHAR"/>
 		<result property="receiverPhone" column="receiver_phone" jdbcType="VARCHAR"/>
+ 		<result property="orderDate" column="ORDER_DATA" jdbcType="DATE"/>
  
 		<result property="dlvyAddr" column="DEMAILADDR" jdbcType="VARCHAR"/>
 		<result property="dlvyRequest" column="dlvy_request" jdbcType="VARCHAR"/>
- 		<result property="tranCode" column="tran_status_code" jdbcType="CHAR"/>
+ 		<result property="tranCode" column="tran_status_code" jdbcType="VARCHAR"/>
  
 		<result property="dlvyDate" column="dlvy_date" jdbcType="VARCHAR"/>
  		
@@ -63,7 +64,7 @@
  
 	<select id="getPurchase" parameterType="int" resultMap="purchaseSelectMap">
   		SELECT 
-		prod_no, buyer_id, payment_option, RECEIVER_NAME, receiver_phone, DEMAILADDR, dlvy_request, dlvy_date, order_data, tran_status_code, tran_no
+		prod_no, buyer_id, payment_option, RECEIVER_NAME, receiver_phone, DEMAILADDR, dlvy_request, dlvy_date, ORDER_DATA, tran_status_code, tran_no
 		FROM transaction
 		WHERE tran_no = #{tranNo}
   	</select>
@@ -81,24 +82,40 @@
 	   	WHERE tran_no = #{tranNo}
 	</update> 
 	
-  	<select  id="getPurchaseList"  parameterType="map"	resultMap="purchaseSelectMap">
+  	<select  id="getSaleList"  parameterType="map"	resultMap="purchaseSelectMap">
 	  	SELECT *
 	  	FROM (	SELECT inner_table.* , ROWNUM AS row_seq
-	  			FROM		(	SELECT *
-								FROM transaction
+	  			FROM		(	SELECT  t.* , p.prod_name 
+								FROM transaction t , product p 
 								<if test="searchCondition != null">
 										<where>
-										
+										t.prod_no= p.prod_no(+)
 											<if test="searchKeyword != null or searchKeyword !='' ">
-								 				buyer_id = #{search.searchKeyword}
+								 				AND  buyer_id = #{search.searchKeyword}
 											</if>												
 										
 										</where>
 								</if>
-						ORDER BY tran_no   ) inner_table
+						ORDER BY t.tran_no   ) inner_table
 				WHERE ROWNUM &lt;= #{search.endRowNum} )
 		WHERE row_seq BETWEEN #{search.startRowNum} AND #{search.endRowNum} 
 	</select>
+	
+	
+	 	<select  id="getPurchaseList"  parameterType="map"	resultMap="purchaseSelectMap">
+	  	SELECT *
+	  	FROM (	SELECT inner_table.* , ROWNUM AS row_seq
+	  			FROM		(	SELECT t.* , p.prod_name 
+								FROM transaction t , product p 
+ 										<where>
+ 												t.prod_no= p.prod_no(+)  AND 
+ 								 				buyer_id = #{search.searchKeyword}										
+										</where>
+ 						ORDER BY t.tran_no   ) inner_table
+				WHERE ROWNUM &lt;= #{search.endRowNum} )
+		WHERE row_seq BETWEEN #{search.startRowNum} AND #{search.endRowNum} 
+	</select>
+	
 	
 	
 	<select  id="getTotalCount"  parameterType="String"	 resultType="int">
@@ -116,6 +133,6 @@
 						) countTable						
 	</select> 
 	<update  id="update_tran_code"  parameterType="purchase"  >
-	  UPDATE transaction SET  tran_status_code = #{tranCode}   WHERE  tran_no = #{tranNo} 
+	UPDATE transaction SET tran_status_code = #{tranCode} WHERE  tran_no = #{tranNo} 
 	</update> 
 </mapper>
