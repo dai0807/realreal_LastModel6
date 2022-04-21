@@ -62,8 +62,7 @@ public class ProductServiceImpl implements ProductService{
  
 	}
 
-//아직 단위 테스트 안함 
- 	public int findTrandtranNo(int prodNo) throws Exception {
+  	public int findTrandtranNo(int prodNo) throws Exception {
 		// TODO Auto-generated method stub
 		return productDao.findTrandtranNo(prodNo);
 	}

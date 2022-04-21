@@ -69,7 +69,7 @@ function history(){
 										
 				<tr>
 					<td class="Depth03">
-					<a href="/listSale.do?"  target="rightFrame">판매 상품 목록</a>
+					<a href="/listSale.do?"  target="rightFrame"> 판매 상품 목록  </a>
 					</td>
 				</tr>
 				<tr>

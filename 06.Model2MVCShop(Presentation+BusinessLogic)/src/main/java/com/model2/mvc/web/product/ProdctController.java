@@ -190,6 +190,8 @@ public class ProdctController {
 		purchaseService.updateTranCode(purchase) ; // 비지니스 로직 
 		
 		ModelAndView modelAndView = new ModelAndView() ;
+		modelAndView.addObject("search", search) ; 
+
  		modelAndView.setViewName("/listProduct.do?") ;
 		System.out.println(" ");
 
