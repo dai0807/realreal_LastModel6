@@ -24,7 +24,7 @@
 	 <insert id ="addProduct" parameterType="product">
 		 INSERT
 			 INTO product	(prod_no , 		prod_name , prod_detail,	manufacture_day ,price,	image_file ,reg_date)
-			 VALUES			( seq_product_prod_no.nextval, #{prodName} ,#{prodDetail} ,  TO_DATE(#{manuDate},'YYYY-MM-DD')  , #{price} , #{fileName} , SYSDATE )
+			 VALUES			( seq_product_prod_no.nextval, #{prodName} ,#{prodDetail} ,  #{manuDate}  , #{price} , #{fileName} , SYSDATE )
 			  
 	 </insert>
 	 
@@ -50,7 +50,7 @@
 			 <set>
 			 prod_name 		= #{prodName}	,
 			 prod_detail 	= #{prodDetail}	,
-			 manufacture_day= TO_DATE(#{manuDate},'YYYY-MM-DD')	,
+			 manufacture_day= #{manuDate}	,
 			 price			= #{price} 		,
 			 image_file		= #{fileName}
 			 </set>

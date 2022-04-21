@@ -162,12 +162,15 @@ public class ProdctController {
 		product.setManuDate(product.getManuDate().replaceAll("-", "")) ;  // 제조일자 
 
 		productService.updateProduct(product) ;
+		  product  = productService.getProduct(product.getProdNo()) ;
+
+		
 		
 		System.out.println("product ::: 출력하기 " + product );
 	//	model.addAttribute("Product" , product ) ;
 	 	System.out.println("업데이투!! ");
 	
-		return "redirect:/getProduct.do?prodNo="+product.getProdNo();
+		return "redirect:/getProduct.do?prodNo="+product.getProdNo()+"&tranCode="+product.getProTranCode();
 		
 	
 	}	
